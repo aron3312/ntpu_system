@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Blog</title>
+
+    <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  {# MEDIUM STYLE EDITOR#}
+    <script src="//cdn.jsdelivr.net/medium-editor/latest/js/medium-editor.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/medium-editor/latest/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+    <!--Custom Css -->
+    <!--Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Russo+One" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+
+    #submit_search{
+      position: absolute;
+      top:70px;
+      left:50px;
+      width: 100px;
+      border-radius: 10px;
+      color: #fc0015;
+      background:#FF;
+  box-shadow:0 0 0 2px #4cd964;
+  border: 0;
+  font-weight: 900;
+  font-size: 18px;
+  color: #4cd964;
+  transform: translate(-50%, -50%);
+  border-radius: 20px;
+  transition: all .2s ease;
+  cursor: pointer;
+  outline: none;
+    }
+    * {
+      outline: none;
+      border: none;
+      padding: 0;
+    }
+
+    body {
+      background-color: rgb(71, 136, 135);
+    }
+
+    .search-form {
+      position: relative;
+      margin: 150px auto 10;
+      width: 300px;
+    }
+
+    .search-form:before {
+      content: ' ';
+      position: absolute;
+      left: 25px;
+      top: 14px;
+      width: 2px;
+      height: 36px;
+      transform: scale(0);
+      z-index: 1;
+      background: rgb(71, 136, 135);
+      transition: all 0.5s cubic-bezier(.87, -.41, .19, 1.44);
+    }
+
+    .active:before {
+      transform: scale(1);
+      transition-delay: 0.3s;
+      animation: 0.6s cubic-bezier(.87, -.41, .19, 1.44) 0.5s infinite forwards focus;
+    }
+
+    .input_1 {
+      border-radius: 36px;
+      position: absolute;
+      width: 64px;
+      height: 64px;
+      transition: all 0.5s cubic-bezier(.87, -.41, .19, 1.44);
+    }
+
+    .active input {
+      width: 100%;
+      padding-left: 25px;
+      border-radius: 36px;
+    }
+
+    button {
+      background: rgba(255, 255, 255, 1);
+      position: absolute;
+      height: 100%;
+      border-radius: 50%;
+      width: 64px;
+      height: 64px;
+      transition: all 0.5s cubic-bezier(.87, -.41, .19, 1.44);
+    }
+
+    button:after {
+      content: ' ';
+      position: absolute;
+      width: 32px;
+      height: 32px;
+      left: 0;
+      right: 0;
+      transform: translateY(-50%);
+      margin: 0 auto;
+      background: rgb(254, 111, 117);
+      border-radius: 50%;
+    }
+
+    button:before {
+      content: ' ';
+      position: absolute;
+      width: 24px;
+      height: 24px;
+      left: 0;
+      right: 0;
+      top: 20px;
+      transform: scale(0);
+      transform-origin: left top;
+      margin: 0 auto;
+      background: white;
+      border-radius: 50%;
+      z-index: 1;
+      transition: all 0.8s ease;
+    }
+
+    .active button {
+      transform: translateX(260px);
+    }
+
+    .active button:before {
+      transform: scale(1);
+    }
+
+    .focus:before {
+      transform: scale(0);
+      animation: none;
+    }
+
+    @keyframes focus {
+      0 {
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+    @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700,300,100);
+
+
+
+    div.table-title {
+       display: block;
+      margin: auto;
+      max-width: 600px;
+      padding:5px;
+      width: 100%;
+    }
+
+    .table-title h3 {
+       color: #fafafa;
+       font-size: 30px;
+       font-weight: 400;
+       font-style:normal;
+       font-family: "Roboto", helvetica, arial, sans-serif;
+       text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+       text-transform:uppercase;
+    }
+
+
+    /*** Table Styles **/
+
+    .table-fill {
+      background: white;
+      border-radius:3px;
+      border-collapse: collapse;
+      height: 320px;
+      margin: auto;
+      max-width: 600px;
+      padding:5px;
+      width: 100%;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+      animation: float 5s infinite;
+    }
+
+    th {
+      color:#D5DDE5;;
+      background:#1b1e24;
+      border-bottom:4px solid #9ea7af;
+      border-right: 1px solid #343a45;
+      font-size:23px;
+      font-weight: 100;
+      padding:24px;
+      text-align:left;
+      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+      vertical-align:middle;
+    }
+
+    th:first-child {
+      border-top-left-radius:3px;
+    }
+
+    th:last-child {
+      border-top-right-radius:3px;
+      border-right:none;
+    }
+
+    tr {
+      border-top: 1px solid #C1C3D1;
+      border-bottom-: 1px solid #C1C3D1;
+      color:#666B85;
+      font-size:16px;
+      font-weight:normal;
+      text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
+    }
+
+    tr:hover td {
+      background:#4E5066;
+      color:#FFFFFF;
+      border-top: 1px solid #22262e;
+    }
+
+    tr:first-child {
+      border-top:none;
+    }
+
+    tr:last-child {
+      border-bottom:none;
+    }
+
+    tr:nth-child(odd) td {
+      background:#EBEBEB;
+    }
+
+    tr:nth-child(odd):hover td {
+      background:#4E5066;
+    }
+
+    tr:last-child td:first-child {
+      border-bottom-left-radius:3px;
+    }
+
+    tr:last-child td:last-child {
+      border-bottom-right-radius:3px;
+    }
+
+    td {
+      background:#FFFFFF;
+      padding:20px;
+      text-align:left;
+      vertical-align:middle;
+      font-weight:300;
+      font-size:18px;
+      text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+      border-right: 1px solid #C1C3D1;
+    }
+
+    td:last-child {
+      border-right: 0px;
+    }
+
+    th.text-left {
+      text-align: left;
+    }
+
+    th.text-center {
+      text-align: center;
+    }
+
+    th.text-right {
+      text-align: right;
+    }
+
+    td.text-left {
+      text-align: left;
+    }
+
+    td.text-center {
+      text-align: center;
+    }
+
+    td.text-right {
+      text-align: right;
+    }
+
+    </style>
+  </head>
+  <body class="loader">
+
+  <!-- NavBar -->
+  <nav class="navbar navbar-default techfont custom-navbar">
+   <div class="container">
+
+     <ul class="nav navbar-nav">
+       <li><a class="navbar-brand bigbrand" href="{% url 'post_list' %}">NTPU-DPAP System</a></li>
+       <li><a href="{% url 'about' %}">System Introduce</a></li>
+       <li><a href="http://pa.ntpu.edu.tw/index.php/ch">NTPU-DPAP_website</a></li>
+       <li><a href="http://www.ntpu.edu.tw/chinese/">NTPU_website</a></li>
+      </ul>
+
+     <ul class="nav navbar-nav navbar-right">
+       {% if user.is_authenticated %}
+       <li>
+         <a href="{% url 'student_data_list' %}">Student_data</a>
+       </li>
+       {% if perms.student_data.can_read %}
+       <li>
+         <a href="{% url 'post_new' %}">New Post</a>
+       </li>
+       <li>
+         <a href="{% url 'post_draft_list' %}">Drafts</a>
+       </li>
+       {% endif %}
+       <li>
+         <a href="{% url 'logout' %}">Logout</a>
+       </li>
+       <li>
+         <a>Welcome: {{user.username}}</a>
+       </li>
+
+       {% else %}
+
+       <li><a class="nav navbar-right" href="{% url 'login' %}"><span class="glyphicon glyphicon-user"></span></a></li>
+
+       {% endif %}
+
+     </ul>
+   </div>
+  </nav>
+
+   <!-- CONTENT BLOCK -->
+   <div class="content container">
+     <div class="row">
+       <div class="col-mid-8">
+         <div class="blog_post">
+           <div class="table-scroll">
+    <div class="centerstage">
+    <div class="search-form">
+      <form method="get" action="{% url 'student_data_list' %}">
+          <input id="inpt_search" class="input_1"  type="text" value={{filter}} name="filter"/>
+           <button></button>
+           <input id="submit_search" type="submit" name="submit" value="submit">
+        </form>
+</div>
+
+
+
+
+    <div class="jumbotron">
+
+
+      <table class="table-fill">
+         		<thead class="thead-row">
+    			<tr>
+    				<th class="text-left">姓名</th>
+    				<th class="text-left">畢業(入學)年</th>
+    				<th class="text-left">身份</th>
+    			</tr>
+    		</thead>
+ 		<tbody class="table-hover">
+      {% for stu in student_data_list %}
+      <div id="student_data">
+        <tr>
+        <td class="text-left"><a href="{% url 'student_data_detail' pk=stu.pk %}">{{ stu.name }}</a></td>
+        <td class="text-left">{{ stu.graduate }}</td>
+        <td class="text-left">{{ stu.id_index }}</td>
+        </tr>
+      </div>
+
+      {% endfor %}
+ 		</tbody>
+ </div>
+  </table>
+</div>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<script type="text/javascript">
+var input = document.querySelector('.search-form');
+var search = document.querySelector('#inpt_search')
+var button = document.querySelector('button');
+button.addEventListener('click', function(e) {
+  e.preventDefault();
+  input.classList.toggle('active');
+})
+search.addEventListener('focus', function() {
+  input.classList.add('focus');
+})
+
+search.addEventListener('blur', function() {
+  search.value.length != 0 ? input.classList.add('focus') : input.classList.remove('focus');
+})
+   </script>
+</body>
+</html>

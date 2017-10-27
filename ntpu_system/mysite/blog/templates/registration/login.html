@@ -1,0 +1,29 @@
+{% extends "blog/base.html" %}
+
+
+{% block content %}
+
+<div class="jumbotron">
+
+<h2>請登入</h2>
+<h3>沒有帳號者請註冊</h3>
+
+{% if form.errors %}
+
+<p>your username and password didn't match ,please try again</p>
+{% endif %}
+<form action="{% url 'login' %}" method="POST">
+  {% csrf_token %}
+  {{ form.as_p }}
+
+  <input class="btn btn-primary" type="submit" value="Login">
+  <input name="next" type="hidden" value="{{ next }}">
+
+</form>
+<a href="{% url 'register' %}"><button>Register</button></a>
+
+
+</div>
+
+
+{% endblock %}

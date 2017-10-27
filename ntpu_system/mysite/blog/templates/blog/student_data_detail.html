@@ -1,0 +1,18 @@
+{% extends "blog/base.html" %}
+{% block content %}
+
+
+{% if user.is_authenticated %}
+<a class="btn btn-primary" href="{% url 'student_edit' pk=student_data.pk %}"><span class="glyphicon glyphicon-pencil"></span></a>
+
+<h1 class="posttitle loader">{{ student_data.name }}</h1>
+
+<p class="postcontent">{{ student_data.sex }}</p>
+<p class="postcontent">{{ student_data.working_place }}</p>
+<p class="postcontent">{{ student_data.job }}</p>
+{% endif %}
+
+
+<a class="btn btn-primary" href="{% url 'student_data_list' %}"><span class="glyphicon glyphicon-arrow-left"></span></a>
+
+{% endblock %}
