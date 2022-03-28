@@ -1,8 +1,8 @@
 # NTPU_ALUMNI_SYSTEM
 
 ---
-![alt text](http://url/to/img.png)
-
+![alt text](img/cover.jpg)
+![alt text](img/Form.jpg)
 ## Description
 
 A web service for alumni of Department of Public Administration and Policy in NTPU to fill out the form and search for information of alma mater.
