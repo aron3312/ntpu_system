@@ -1,0 +1,28 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+<div class="chinesefont jumbotron">
+  <h2>輸出學生資料</h2>
+  <form method="POST">
+       {% csrf_token %}
+       <label>起始畢業年：</label>
+       <select name="from_year">
+         <option value="101">101</option>
+         <option value="102">102</option>
+         <option value="103">103</option>
+         <option value="104">104</option>
+         <option value="105">105</option>
+       </select>
+       <label>結束畢業年：</label>
+       <select name="end_year">
+         <option value="101">101</option>
+         <option value="102">102</option>
+         <option value="103">103</option>
+         <option value="104">104</option>
+         <option value="105">105</option>
+       </select>
+       <p></p>
+       <input type="submit" name="go" value="go">
+     </form>
+</div>
+{% endblock %}

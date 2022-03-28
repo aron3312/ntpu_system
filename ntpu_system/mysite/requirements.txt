@@ -1,0 +1,6 @@
+bs4
+numpy
+six
+pandas
+Django<2.0.0,>=1.11.8
+restframework==3.9.0

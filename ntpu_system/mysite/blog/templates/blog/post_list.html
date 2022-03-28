@@ -1,0 +1,188 @@
+{% extends "blog/base.html" %}
+{% block content %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.1.0/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/FitText.js/1.1/jquery.fittext.min.js"></script>
+<style>
+.visuallyhidden {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+}
+
+article a {
+  text-decoration: none;
+  color: #666;
+  display: block;
+  padding: 39px 44px 30px 22px;
+  border-bottom: 1px solid #ececec;
+  position: relative;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+@media screen and (min-width: 500px) {
+  article a {
+    padding: 52px 55px 48px 44px;
+  }
+}
+article a:hover {
+  color: #333;
+  background: #b2b0b0;
+}
+article a:hover:after {
+  color: #666;
+  right: 3px;
+}
+@media screen and (min-width: 500px) {
+  article a:hover:after {
+    right: 12px;
+  }
+}
+article a:hover .comments-indicator:after {
+  border-top-color: #efefef;
+}
+article a:after {
+  content: ">";
+  font-family: "Open Sans";
+  font-size: 44px;
+  font-weight: 300;
+  color: #ccc;
+  line-height: 35px;
+  height: 35px;
+  margin-top: -17px;
+  position: absolute;
+  top: 50%;
+  right: 11px;
+  -webkit-transform: scale(0.5, 1);
+          transform: scale(0.5, 1);
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+@media screen and (min-width: 500px) {
+  article a:after {
+    right: 22px;
+  }
+}
+article time, article .comments-indicator {
+  font-family: "Open Sans";
+  font-size: 14px;
+  color: #999;
+  display: inline-block;
+}
+article time {
+  padding-bottom: 11px;
+}
+article .comments-indicator {
+  line-height: 20px;
+  text-align: center;
+  height: 20px;
+  width: 30px;
+  margin-left: 5px;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  position: relative;
+}
+article .comments-indicator:before, article .comments-indicator:after {
+  top: 100%;
+  left: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+article .comments-indicator:after {
+  border-color: rgba(255, 255, 255, 0);
+  border-top-color: #ffffff;
+  border-width: 3px;
+  margin-left: -3px;
+}
+article .comments-indicator:before {
+  border-color: rgba(221, 221, 221, 0);
+  border-top-color: #ddd;
+  border-width: 6px;
+  margin-left: -6px;
+}
+article h1, article p {
+  max-width: 850px;
+}
+article h1 {
+  font-size: 24px;
+  line-height: 1.3;
+  font-family: "Lora";
+  letter-spacing: 0.02em;
+  font-weight: bold;
+  font-style: italic;
+  margin-top: 6px;
+}
+@media screen and (min-width: 500px) {
+  article h1 {
+    font-family: 'cwTeXYen', sans-serif;
+    font-size: 40px;
+  }
+}
+article.featured h1 {
+  font-size: 33px;
+  line-height: 1.2;
+  margin-bottom: 18px;
+}
+@media screen and (min-width: 500px) {
+  article.featured h1 {
+    font-size: 44px;
+  }
+}
+article p {
+  font-family: "Open Sans";
+  line-height: 1.5;
+}
+article{
+  background-color: #efefef
+}
+/*for Clock*/
+
+.clock {
+  height: 100px;
+  width: 70%;
+  line-height: 100px;
+  margin: 150px auto 0;
+  padding: 0 50px;
+  background: #222;
+  color: #eee;
+  text-align: center;
+  border-radius: 15px;
+  box-shadow: 0 0 7px #222;
+  text-shadow: 0 0 3px #fff;
+}
+</style>
+<script>
+$('#clock').fitText(1.3);
+
+function update() {
+$('#clock').html(moment().format('D. MMMM YYYY H:mm:ss'));
+}
+
+setInterval(update, 1000);
+</script>
+<div class="centerstage">
+  <div class="container">
+      {% for post in post_list %}
+<article>
+	<a href="{% url 'post_detail' pk=post.pk %}">
+		<time>{{post.published_date|date:"D M Y"}}</time>
+    <span class="comments-indicator" title="{{ post.approve_comments.count }} comments">{{ post.approve_comments.count }} <span class="visuallyhidden">Comments</span></span>
+		<h1>{{ post.title }}</h1>
+	</a>
+</article>
+  {% endfor %}
+</div>
+</div>
+<div id="clock" class="clock">loading ...</div>
+
+{% endblock %}

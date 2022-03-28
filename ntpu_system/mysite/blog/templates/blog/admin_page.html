@@ -1,0 +1,15 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+<div class="chinesefont jumbotron">
+<ul>
+  <li>
+  <a href="{% url 'export_file_to_csv' %}">輸出學生資料</a>
+  </li>
+  <li>
+  <a href="{% url 'send_mail_to_member' %}">寄信給會員</a>
+  </li>
+</ul>
+
+</div>
+{% endblock %}

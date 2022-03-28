@@ -1,0 +1,8 @@
+*.R
+*.csv
+*.json
+*.sqlite3
+*.xlsx
+migrations
+__pycache__
+images

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Blog</title>
+
+    <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  {# MEDIUM STYLE EDITOR#}
+    <script src="//cdn.jsdelivr.net/medium-editor/latest/js/medium-editor.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/medium-editor/latest/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+    <!--Custom Css -->
+    <!--Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat|Russo+One" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+    * {
+      outline: none;
+      border: none;
+      padding: 0;
+    }
+    .imgbrand {width: 200px;height: 80px;}
+    .nav{  font-weight: bold; font-size: 1.2em}
+    body {
+      background-color: rgb(71, 136, 135);
+    }
+
+    .search-form {
+      position: relative;
+      margin: 150px auto 10;
+      width: 300px;
+    }
+
+    .search-form:before {
+      content: ' ';
+      position: absolute;
+      left: 25px;
+      top: 14px;
+      width: 2px;
+      height: 36px;
+      transform: scale(0);
+      z-index: 1;
+      background: rgb(71, 136, 135);
+      transition: all 0.5s cubic-bezier(.87, -.41, .19, 1.44);
+    }
+
+
+
+    .focus:before {
+      transform: scale(0);
+      animation: none;
+    }
+
+    @keyframes focus {
+      0 {
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+    @import url(https://fonts.googleapis.com/css?family=Roboto:400,500,700,300,100);
+
+
+
+    div.table-title {
+       display: block;
+      margin: auto;
+      max-width: 600px;
+      padding:5px;
+      width: 100%;
+    }
+
+    .table-title h3 {
+       color: #fafafa;
+       font-size: 30px;
+       font-weight: 400;
+       font-style:normal;
+       font-family: "Roboto", helvetica, arial, sans-serif;
+       text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+       text-transform:uppercase;
+    }
+
+
+    /*** Table Styles **/
+
+    .table-fill {
+      background: white;
+      border-radius:3px;
+      border-collapse: collapse;
+      height: 320px;
+      margin: auto;
+      max-width: 600px;
+      padding:5px;
+      width: 100%;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+      animation: float 5s infinite;
+    }
+
+    th {
+      color:#D5DDE5;;
+      background:#1b1e24;
+      border-bottom:4px solid #9ea7af;
+      border-right: 1px solid #343a45;
+      font-size:23px;
+      font-weight: 100;
+      padding:24px;
+      text-align:left;
+      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+      vertical-align:middle;
+    }
+
+    th:first-child {
+      border-top-left-radius:3px;
+    }
+
+    th:last-child {
+      border-top-right-radius:3px;
+      border-right:none;
+    }
+
+    tr {
+      border-top: 1px solid #C1C3D1;
+      border-bottom-: 1px solid #C1C3D1;
+      color:#666B85;
+      font-size:16px;
+      font-weight:normal;
+      text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
+    }
+
+    tr:hover td {
+      background:#4E5066;
+      color:#FFFFFF;
+      border-top: 1px solid #22262e;
+    }
+
+    tr:first-child {
+      border-top:none;
+    }
+
+    tr:last-child {
+      border-bottom:none;
+    }
+
+    tr:nth-child(odd) td {
+      background:#EBEBEB;
+    }
+
+    tr:nth-child(odd):hover td {
+      background:#4E5066;
+    }
+
+    tr:last-child td:first-child {
+      border-bottom-left-radius:3px;
+    }
+
+    tr:last-child td:last-child {
+      border-bottom-right-radius:3px;
+    }
+
+    td {
+      background:#FFFFFF;
+      padding:20px;
+      text-align:left;
+      vertical-align:middle;
+      font-weight:300;
+      font-size:18px;
+      text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
+      border-right: 1px solid #C1C3D1;
+    }
+
+    td:last-child {
+      border-right: 0px;
+    }
+
+    th.text-left {
+      text-align: left;
+    }
+
+    th.text-center {
+      text-align: center;
+    }
+
+    th.text-right {
+      text-align: right;
+    }
+
+    td.text-left {
+      text-align: left;
+    }
+
+    td.text-center {
+      text-align: center;
+    }
+
+    td.text-right {
+      text-align: right;
+    }
+
+    </style>
+  </head>
+  <body class="loader">
+
+  <!-- NavBar -->
+  <nav class="navbar navbar-default chinesefont custom-navbar">
+   <div class="container">
+     <ul class="nav navbar-nav">
+       <li>
+         <img class="imgbrand navbar-brand bigbrand" src="http://pa.ntpu.edu.tw/template/ch/images/com-logo.gif" alt="台北大學公共行政學系">
+       </li>
+       <li><a class="navbar-brand bigbrand" href="{% url 'post_list' %}">校友聯絡系統</a></li>
+       <li><a href="{% url 'about' %}">系統介紹</a></li>
+        <li><a href="{% url 'dpapnews' %}">北大公行系最新消息</a></li>
+      </ul>
+
+     <ul class="nav navbar-nav navbar-right">
+       {% if user.is_authenticated %}
+       {% if perms.student_data.can_read %}
+       <li>
+         <a href="{% url 'post_new' %}">新增公告</a>
+       </li>
+       <li>
+         <a href="{% url 'post_draft_list' %}">草稿</a>
+       </li>
+       <li>
+         <a href="{% url 'student_data_list' %}">學生資料維護</a>
+       </li>
+       <li>
+         <a href="{% url 'admin_page' %}">管理系統</a>
+       </li>
+      {% endif %}
+       <li>
+         <a href="{% url 'logout' %}">登出</a>
+       </li>
+       <li>
+         <a>歡迎您: 校友 {{user.user_extend.name}} </a>
+       </li>
+
+       {% else %}
+
+       <li><a class="nav navbar-right" href="{% url 'login' %}"><span class="glyphicon glyphicon-user"></span></a></li>
+
+       {% endif %}
+
+     </ul>
+   </div>
+  </nav>
+
+
+
+   <!-- CONTENT BLOCK -->
+   <div class="content container">
+     <div class="row">
+       <div class="col-mid-8">
+         <div class="blog_post">
+           <div class="table-scroll">
+    <div class="centerstage">
+      <h2>名字搜尋（精準比對）</h2>
+    <div class="search-form">
+      <form method="get" action="{% url 'student_data_list' %}">
+          <input id="inpt_search" class="input_1"  type="text" placeholder="請輸入學生姓名" value="" name="name_filter"/>
+           <input id="submit_search" type="submit" name="submit" value="submit">
+        </form>
+        <h2>身份別查詢</h2>
+        <form method="get" action="{% url 'student_data_list' %}">
+            <button type="button" name="button"><input id="inpt_search" class="input_1"  type="submit" value="" name="id_filter"/></button>
+            <button type="button" name="button"><input id="inpt_search" class="input_1"  type="submit" value="學士班" name="id_filter"/></button>
+            <button type="button" name="button"><input id="inpt_search" class="input_1"  type="submit" value="碩士班" name="id_filter"/></button>
+            <button type="button" name="button"><input id="inpt_search" class="input_1"  type="submit" value="進修學士班" name="id_filter"/></button>
+          </form>
+
+</div>
+
+
+
+
+    <div class="jumbotron">
+
+
+      <table class="table-fill">
+         		<thead class="thead-row">
+    			<tr>
+    				<th class="text-left">姓名</th>
+    				<th class="text-left">畢業(入學)年</th>
+    				<th class="text-left">身份</th>
+    			</tr>
+    		</thead>
+ 		<tbody class="table-hover">
+      {% for stu in student_data_list %}
+      <div id="student_data">
+        <tr>
+        <td class="text-left"><a href="{% url 'student_data_detail' pk=stu.pk %}">{{ stu.name }}</a></td>
+        <td class="text-left">{{ stu.graduate }}</td>
+        <td class="text-left">{{ stu.id_index }}</td>
+        </tr>
+      </div>
+
+      {% endfor %}
+ 		</tbody>
+ </div>
+  </table>
+</div>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<script type="text/javascript">
+var input = document.querySelector('.search-form');
+var search = document.querySelector('#inpt_search')
+var button = document.querySelector('button');
+button.addEventListener('click', function(e) {
+  e.preventDefault();
+  input.classList.toggle('active');
+})
+search.addEventListener('focus', function() {
+  input.classList.add('focus');
+})
+
+search.addEventListener('blur', function() {
+  search.value.length != 0 ? input.classList.add('focus') : input.classList.remove('focus');
+})
+   </script>
+</body>
+</html>

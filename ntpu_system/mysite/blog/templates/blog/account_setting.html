@@ -1,0 +1,529 @@
+{% extends "blog/base.html" %}
+{% block content %}
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js">
+</script>
+
+<style>
+.form {
+  max-width: calc(100vw - 40px);
+  width: 500px;
+  height: auto;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 8px;
+  box-shadow: 0 0 40px -10px #fff;
+  margin: 3% auto;
+  padding: 20px 30px;
+  box-sizing: border-box;
+  position: relative;
+  border-bottom: 5px solid #ccc;
+}
+form:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 8px;
+  background: #c4e17f;
+  border-radius: 5px 5px 0 0  ;
+  background: rgba(196,225,127,1);
+  background: -moz-linear-gradient(left, rgba(196,225,127,1) 0%, rgba(196,225,127,1) 20%, rgba(247,253,202,1) 20%, rgba(247,253,202,1) 40%, rgba(254,207,113,1) 40%, rgba(254,207,113,1) 60%, rgba(240,119,108,1) 60%, rgba(240,119,108,1) 80%, rgba(219,157,190,1) 80%, rgba(219,157,190,1) 100%);
+  background: -webkit-gradient(left top, right top, color-stop(0%, rgba(196,225,127,1)), color-stop(20%, rgba(196,225,127,1)), color-stop(20%, rgba(247,253,202,1)), color-stop(40%, rgba(247,253,202,1)), color-stop(40%, rgba(254,207,113,1)), color-stop(60%, rgba(254,207,113,1)), color-stop(60%, rgba(240,119,108,1)), color-stop(80%, rgba(240,119,108,1)), color-stop(80%, rgba(219,157,190,1)), color-stop(100%, rgba(219,157,190,1)));
+  background: -webkit-linear-gradient(left, rgba(196,225,127,1) 0%, rgba(196,225,127,1) 20%, rgba(247,253,202,1) 20%, rgba(247,253,202,1) 40%, rgba(254,207,113,1) 40%, rgba(254,207,113,1) 60%, rgba(240,119,108,1) 60%, rgba(240,119,108,1) 80%, rgba(219,157,190,1) 80%, rgba(219,157,190,1) 100%);
+  background: -o-linear-gradient(left, rgba(196,225,127,1) 0%, rgba(196,225,127,1) 20%, rgba(247,253,202,1) 20%, rgba(247,253,202,1) 40%, rgba(254,207,113,1) 40%, rgba(254,207,113,1) 60%, rgba(240,119,108,1) 60%, rgba(240,119,108,1) 80%, rgba(219,157,190,1) 80%, rgba(219,157,190,1) 100%);
+  background: -ms-linear-gradient(left, rgba(196,225,127,1) 0%, rgba(196,225,127,1) 20%, rgba(247,253,202,1) 20%, rgba(247,253,202,1) 40%, rgba(254,207,113,1) 40%, rgba(254,207,113,1) 60%, rgba(240,119,108,1) 60%, rgba(240,119,108,1) 80%, rgba(219,157,190,1) 80%, rgba(219,157,190,1) 100%);
+  background: linear-gradient(to right, rgba(196,225,127,1) 0%, rgba(196,225,127,1) 20%, rgba(247,253,202,1) 20%, rgba(247,253,202,1) 40%, rgba(254,207,113,1) 40%, rgba(254,207,113,1) 60%, rgba(240,119,108,1) 60%, rgba(240,119,108,1) 80%, rgba(219,157,190,1) 80%, rgba(219,157,190,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c4e17f', endColorstr='#db9dbe', GradientType=1 );
+}
+.form h2 {
+  margin: 18px 0;
+  padding-bottom: 10px;
+  width: 210px;
+  color: #1e439b;
+  font-size: 22px;
+  border-bottom: 3px solid #ff5501;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+input {
+  width: 60%;
+  padding: 10px;
+  box-sizing: border-box;
+  background: none;
+  outline: none;
+  resize: none;
+  border: 0;
+  font-family: 'Montserrat', sans-serif;
+  border: 2px solid #bebed2;
+  transition: all .3s;
+}
+.form p:before {
+  content: attr(type);
+  display: block;
+  margin: 10px 0 0;
+  font-size: 13px;
+  color: #5a5a5a;
+  float: left;
+  width: 40%;
+  transition: all .3s;
+}
+button {
+  padding: 8px 12px;
+  margin: 8px 0 0;
+  font-family: 'Montserrat', sans-serif;
+  border: 2px solid #78788c;
+  background: 0;
+  color: #5a5a6e;
+  cursor: pointer;
+  transition: all .3s;
+}
+button:hover {
+  background: #78788c;
+  color: #fff;
+}
+.tright{
+  text-align: right;
+}
+.ui-menu{
+  max-height: 150px;
+  overflow: auto;
+}
+.ui-menu .ui-menu-item{
+  padding:5px;
+  font-size: 14px;
+}
+.relative{
+  position: relative;
+}
+.relative i.fa:before{
+  color: #444;
+  padding: 10px;
+  position: absolute;
+  left: -3px;
+  text-align: center;
+}
+
+.relative i.fa{
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 40px;
+  text-align: center;
+  border-radius: 0 4px 4px 0;
+  width: 0;
+  height: 0;
+  z-index: 99;
+  border-left: 20px solid transparent;
+  border-right: 30px solid #ccc;
+  border-bottom: 34px solid #ccc;
+  transition: all 0.15s ease-in-out;
+
+}
+.form-control:focus{
+  border-color: #1e439b;
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgb(30, 102, 195);
+}
+.relative input:focus + i.fa{
+  border-left: 20px solid transparent;
+  border-right: 30px solid #1e439b;
+  border-bottom: 34px solid #1e439b;
+}
+.relative input:focus + i.fa:before{
+  color: #fff;
+}
+.input-group .form-control:not(:first-child):not(:last-child),
+.input-group-addon:not(:first-child):not(:last-child),
+.input-group-btn:not(:first-child):not(:last-child){
+  border-radius: 0 4px 4px 0;
+}
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control{
+  background-color: #fff;
+}
+
+/* --- Thanks Message Popup --- */
+.thanks{
+  max-width: calc(100vw - 40px);
+  width: 200px;
+  height: auto;
+  background-color: #444;
+  border-radius: 8px;
+  box-shadow: 0 0 40px -10px #000;
+  padding: 20px;
+  box-sizing: border-box;
+  position: relative;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  transition: all .3s;
+}
+.thanks h4,
+.thanks p{
+  color: #fff;
+  text-align: center;
+}
+
+/* --- Animated Buttons --- */
+.movebtn{
+  background-color: transparent;
+  display:inline-block;
+  width:100px;
+  background-image: none;
+  padding: 8px 10px;
+  margin-bottom:20px;
+  border-radius: 0;
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  transition: all 0.5s;
+  -webkit-transition-timing-function: cubic-bezier(0.5, 1.65, 0.37, 0.66);
+  transition-timing-function: cubic-bezier(0.5, 1.65, 0.37, 0.66);
+}
+.movebtnre {
+  border: 2px solid #ff5501;
+  box-shadow: inset 0 0 0 0 #ff5501;
+  color:#ff5501;
+}
+.movebtnsu {
+  border: 2px solid #1e439b;
+  box-shadow: inset 0 0 0 0 #1e439b;
+  color: #1e439b;
+}
+.movebtnre:focus,
+.movebtnre:hover,
+.movebtnre:active {
+  background-color: transparent;
+  color: #FFF;
+  border-color: #ff5501;
+  box-shadow: inset 96px 0 0 0 #ff5501;
+}
+.movebtnsu:focus,
+.movebtnsu:hover,
+.movebtnsu:active {
+  background-color: transparent;
+  color: #FFF;
+  border-color: #1e439b;
+  box-shadow: inset 96px 0 0 0 #1e439b;
+}
+
+
+/* --- Media Queries --- */
+
+@media only screen and (max-width: 600px) {
+  p:before{
+      content: attr(type);
+      width: 100%
+  }
+  input{
+      width: 100%;
+  }
+}
+.form{
+  font-size: 24px;
+  font-family: 'cwTeXYen', sans-serif;
+}
+option{
+  font-size: 22px;
+  font-family: 'cwTeXYen', sans-serif;
+}
+select{
+  font-size: 24px;
+  font-family: 'cwTeXYen', sans-serif;
+}
+</style>
+
+<!-- show question after choose -->
+
+<!-- <script>
+function showDiv(select){
+ if(select.value=="就業中"){
+  document.getElementById('job_status_item').style.display = "block";
+ } else{
+  document.getElementById('job_status_item').style.display = "none";
+ }
+}
+</script> -->
+
+<!-- 應屆畢業生 -->
+
+{% if user.user_extend.graduate_year == year %}
+<form class="form"　method="post">
+     {% csrf_token %}
+	  <h2>個人基本資料</h2>
+	  <div class="form-group">
+	  	<label>*目前email地址</label>
+	  	<div class="relative">
+		  	 {{ form.email2 }}
+		  	<i class="fa fa-envelope"></i>
+	  	</div>
+	  </div>
+	  <div class="form-group">
+	  	<label>目前居住地址</label>
+	  	<div class="relative">
+	  		 {{ form.address }}
+         <i class="fa fa-envelope"></i>
+	  	</div>
+	  </div>
+	  <div class="form-group">
+	  	<label>手機號碼</label>
+	  	<div class="relative">
+	  		{{ form.phone_number }}
+	  		<i class="fa fa-building"></i>
+	  	</div>
+	  </div>
+    <div class="form-group">
+		  <label>*以下哪一個狀態，最能完整描述您大四畢業後的下一階段規劃？</label>
+		  <div class="relative">
+			 {{ form.job_status }}
+			  <i class="fa fa-user"></i>
+		  </div>
+	  </div>
+    <!-- 選擇顯示區域 -->
+    <div id="job_status_item">
+      <div class="form-group">
+        <label>您將進入哪一個職場領域？</label>
+        <div class="relative">
+          {{ form.job_category }}
+          <i class="fa fa-building"></i>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>單位名稱</label>
+        <div class="relative">
+          {{ form.org_name }}
+          <i class="fa fa-building"></i>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>職稱</label>
+        <div class="relative">
+          {{ form.job_title }}
+          <i class="fa fa-building"></i>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>您在目前這個工作的年資多久了（單位：年）？</label>
+        <div class="relative">
+          {{ form.seniority }}
+          <i class="fa fa-building"></i>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>工作地點(例如：臺灣、新竹)</label>
+        <div class="relative">
+          {{ form.work_place }}
+          <i class="fa fa-building"></i>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>您畢業後的月薪大約將為（新台幣）？</label>
+        <div class="relative">
+          {{ form.salary }}
+          <i class="fa fa-building"></i>
+        </div>
+      </div>
+    </div>
+
+    <div id="study_status_item">
+      <div class="form-group">
+        <label>是否出國就讀(非必答)：</label>
+        <div class="relative">
+          {{ form.study_aboard }}
+          <i class="fa fa-building"></i>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>學校名稱(非必答)：</label>
+        <div class="relative">
+          {{ form.school_name }}
+          <i class="fa fa-building"></i>
+        </div>
+      </div>
+    </div>
+
+    <div id="test_status_item">
+      <div class="form-group">
+        <label>考試種類（填寫範例：高考一般行政；地方特考一般民政；郵政特考...）</label>
+        <div class="relative">
+          {{ form.test_type }}
+          <i class="fa fa-building"></i>
+        </div>
+      </div>
+    </div>
+
+    <div id="other_test_status_item">
+      <div class="form-group">
+        <label>考試種類（填寫範例：律師考試、會計師考試...）</label>
+        <div class="relative">
+          {{ form.other_test_type }}
+          <i class="fa fa-building"></i>
+        </div>
+      </div>
+    </div>
+
+	  <div class="tright">
+	  <button class="movebtn movebtnsu" type="submit" formmethod="post">確定送出 <i class="fa fa-fw fa-paper-plane"></i></button>
+	  </div>
+	</form>
+  <script>
+  $('#id_job_status option:contains("就業中")').text('1. 直接進入職場（已找到確定工作）');
+  $('#id_job_status option:contains("服役中")').text('2. 服役');
+  $('#id_job_status option:contains("待業")').text('3. 找工作（指尚未找到工作）');
+  $('#id_job_status option:contains("求學中")').text('4. 繼續升學');
+  $('#id_job_status option:contains("準備公務")').text('5. 準備公務人員相關考試（高普特考、國營事業考試...）');
+  $('#id_job_status option:contains("準備其他")').text('6. 準備其他考試（證照考試、檢定考試...）');
+  </script>
+{% else %}
+<!-- 非應屆畢業生 !-->
+<form class="form"　method="post">
+     {% csrf_token %}
+	  <h2>個人基本資料</h2>
+	  <div class="form-group">
+	  	<label>*目前email地址:</label>
+	  	<div class="relative">
+		  	 {{ form.email2 }}
+		  	<i class="fa fa-envelope"></i>
+	  	</div>
+	  </div>
+	  <div class="form-group">
+	  	<label>目前居住地址:</label>
+	  	<div class="relative">
+	  		 {{ form.address }}
+         <i class="fa fa-envelope"></i>
+	  	</div>
+	  </div>
+	  <div class="form-group">
+	  	<label for="email">手機號碼：</label>
+	  	<div class="relative">
+	  		{{ form.phone_number }}
+	  		<i class="fa fa-building"></i>
+	  	</div>
+	  </div>
+    <div class="form-group">
+		  <label>*以下哪一項最能完整描述您的近況？</label>
+		  <div class="relative">
+			 {{ form.job_status }}
+			  <i class="fa fa-user"></i>
+		  </div>
+	  </div>
+    <!-- 選擇顯示區域 -->
+    <div id="job_status_item">
+      <div class="form-group">
+        <label>您現在服務於哪一個職業領域？</label>
+        <div class="relative">
+          {{ form.job_category }}
+          <i class="fa fa-building"></i>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>單位名稱</label>
+        <div class="relative">
+          {{ form.org_name }}
+          <i class="fa fa-building"></i>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">職稱</label>
+        <div class="relative">
+          {{ form.job_title }}
+          <i class="fa fa-building"></i>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">您在目前這個工作的年資多久了（單位：年）？</label>
+        <div class="relative">
+          {{ form.seniority }}
+          <i class="fa fa-building"></i>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">工作地點(例如：臺灣、新竹)</label>
+        <div class="relative">
+          {{ form.work_place }}
+          <i class="fa fa-building"></i>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">您目前的月薪大約將為（新台幣）？</label>
+        <div class="relative">
+          {{ form.salary }}
+          <i class="fa fa-building"></i>
+        </div>
+      </div>
+    </div>
+
+    <div id="study_status_item">
+      <div class="form-group">
+        <label for="email">是否出國就讀</label>
+        <div class="relative">
+          {{ form.study_aboard }}
+          <i class="fa fa-building"></i>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="email">學校名稱</label>
+        <div class="relative">
+          {{ form.school_name }}
+          <i class="fa fa-building"></i>
+        </div>
+      </div>
+    </div>
+
+	  <div class="tright">
+	  <button class="movebtn movebtnsu" type="submit" formmethod="post">確定送出 <i class="fa fa-fw fa-paper-plane"></i></button>
+	  </div>
+	</form>
+{% endif %}
+  <script>
+  $('#id_job_status option:nth(0)').attr("selected","selected")
+  $("#job_status_item").hide();
+  $("#study_status_item").hide()
+  $("#test_status_item").hide()
+  $("#other_test_status_item").hide()
+  $('#id_job_status').on('change', function () {
+   var optionSelected = $("option:selected", this);
+   var valueSelected = this.value;
+   if(valueSelected == "就業中"){
+       $("#job_status_item").show();
+       $("#study_status_item").hide()
+       $("#test_status_item").hide()
+       $("#other_test_status_item").hide()
+   }
+   else if(valueSelected == "求學中"){
+       $("#job_status_item").hide();
+       $("#study_status_item").show()
+       $("#test_status_item").hide()
+       $("#other_test_status_item").hide()
+   }
+   else if(valueSelected == "準備公務人員相關考試中"){
+       $("#job_status_item").hide();
+       $("#study_status_item").hide()
+       $("#other_test_status_item").hide()
+       $("#test_status_item").show()
+   }
+   else if(valueSelected == "準備其他考試中"){
+       $("#job_status_item").hide();
+       $("#study_status_item").hide()
+       $("#other_test_status_item").show()
+       $("#test_status_item").hide()
+   }
+   else {
+       $("#job_status_item").hide();
+        $("#study_status_item").hide()
+        $("#test_status_item").hide()
+        $("#other_test_status_item").hide()
+   }
+  })
+  </script>
+{% endblock %}

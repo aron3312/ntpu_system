@@ -1,0 +1,37 @@
+{% extends "blog/base.html" %}
+
+
+{% block content %}
+<style>
+table {
+  display: block;
+  font-family: sans-serif;
+  -webkit-font-smoothing: antialiased;
+  font-size: 115%;
+  overflow: auto;
+  width: auto;
+}
+td {
+  background-color: rgb(238, 238, 238);
+  color: rgb(111, 111, 111);
+  padding: 20px 30px;
+}
+th {
+  background-color:#337ab7;
+  color: white;
+  font-weight: normal;
+  padding: 20px 30px;
+  text-align: center;
+}
+#newsTable h3 {
+    font-size: 1.4em;
+    line-height: 120%;
+}
+</style>
+
+<div id="newsTable">
+<table  class="chinesefont" style="border:3px #FFD382;" cellpadding="10" border='1'>
+{% autoescape off %}{{ table }}{% endautoescape %}
+</table>
+</div>
+{% endblock %}
